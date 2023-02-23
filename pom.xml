@@ -7,6 +7,12 @@
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	
+	<plugin>
+    <groupId>org.codehaus.mojo</groupId>
+    <artifactId>sonar-maven-plugin</artifactId>
+    <version>3.0.2</version>
+</plugin>
+	
 	<name>maven-web-application</name>
 
 	<description>Maven Web Project for Java Project</description>

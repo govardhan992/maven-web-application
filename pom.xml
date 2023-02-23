@@ -7,12 +7,7 @@
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	
-	<plugin>
-    <groupId>org.codehaus.mojo</groupId>
-    <artifactId>sonar-maven-plugin</artifactId>
-    <version>3.0.2</version>
-</plugin>
-	
+		
 	<name>maven-web-application</name>
 
 	<description>Maven Web Project for Java Project</description>
@@ -27,10 +22,9 @@
 		<spring.version>5.1.2.RELEASE</spring.version>
 		<junit.version>4.11</junit.version>
 		<log4j.version>1.2.17</log4j.version>
-		<sonar.host.url>http://http://50.16.144.27:9000/</sonar.host.url>
+		<sonar.host.url>http://50.16.144.27:9000/</sonar.host.url>
 		<sonar.login>admin</sonar.login>
 		<sonar.password>Gova@1995</sonar.password> 
-	<!--	<sonar.login>squ_fd0acf13e81f82faf08549aa86e2518e864f4c38</sonar.login> -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 

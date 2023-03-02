@@ -35,7 +35,7 @@ pipeline {
         } */
         stage('build the docker image'){
             steps {
-                sh "docker build -t govardhanr992/web:${BUILD_NUMBER} ."
+                sh "docker build -t govardhanr992/webserver:${BUILD_NUMBER} ."
             }
         }
         stage("push docker image"){
@@ -44,7 +44,7 @@ pipeline {
                 
                sh "docker login -u govardhanr992 -p ${dockerhub_psw}"
      }
-                sh "docker push govardhanr992/web:${BUILD_NUMBER}"
+                sh "docker push govardhanr992/webserver:${BUILD_NUMBER}"
             }
         }
         stage("deploy_app"){
@@ -63,9 +63,9 @@ pipeline {
                     if( "${USER_INPUT}" == "yes"){
                 sshagent(['deploy_container']) {
                  
-                 sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.88.104 docker pull govardhanr992/web:${BUILD_NUMBER}'
+                 sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.88.104 docker pull govardhanr992/webserver:${BUILD_NUMBER}'
                  sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.88.104 docker rm -f webserver || true'
-                 sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.88.104 docker run -d -p 8090:8080 --name webserver govardhanr992/nginx:${BUILD_NUMBER}'
+                 sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.88.104 docker run -d -p 8090:8080 --name webserver govardhanr992/webserver:${BUILD_NUMBER}'
                 }
                    
             }

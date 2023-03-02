@@ -47,5 +47,34 @@ pipeline {
                 sh "docker push govardhanr992/web:${BUILD_NUMBER}"
             }
         }
+        stage("deploy_app"){
+            steps {
+              script {
+
+                 def USER_INPUT = input(
+                    message: 'User input required - Do you want to proceed?',
+                    parameters: [
+                            [$class: 'ChoiceParameterDefinition',
+                             choices: ['no','yes'].join('\n'),
+                             name: 'input',
+                             description: 'Menu - select box option']
+                    ])
+                    echo "The answer is: ${USER_INPUT}"
+                    if( "${USER_INPUT}" == "yes"){
+                sshagent(['deploy_container']) {
+                 
+                 sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.88.104 docker pull govardhanr992/web:${BUILD_NUMBER}'
+                 sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.88.104 docker rm -f webserver || true'
+                 sh 'ssh -o StrictHostKeyChecking=no ec2-user@172.31.88.104 docker run -d -p 8090:8080 --name webserver govardhanr992/nginx:${BUILD_NUMBER}'
+                }
+                   
+            }
+                else {
+                   echo "Skipping deployment"
+                }
+         }
+            }
+        }
+    }
     }
 }
